@@ -1,5 +1,8 @@
-import { Router } from 'express';
-import Post from '../controllers/post';
+import { NextFunction, request, Request, Response, Router } from 'express';
+import { Where } from 'sequelize/types/utils';
+import Users from '../../db/models/user';
+// import Post from '../controllers/post';
+import Post from '../../db/models/post';
 
 const router = Router();
 
@@ -9,7 +12,20 @@ const router = Router();
  * response: { data: [...{ postId, userId, nickname, title,
  *                              createdAt, updatedAt, likes(:int) }] }
  */
-router.route('/').get().post();
+router
+    .route('/')
+    .get(async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const posts = await Post.findAll({
+                order: ['createdAt', 'DESC'],
+            });
+
+            res.status(200).json({ data: posts });
+        } catch (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+    });
 
 /**
  * CREATE POST
@@ -17,7 +33,25 @@ router.route('/').get().post();
  * request: { title, content }
  * response: { message }
  */
-router.route('/').post();
+router
+    .route('/')
+    .post(async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const userId: number = 1;
+            const name: string = 'json';
+            const { title, content } = req.body;
+
+            const post = await Post.create({
+                userId,
+                name,
+                title,
+                content,
+            });
+        } catch (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+    });
 
 /**
  * FIND POST BY POSTID

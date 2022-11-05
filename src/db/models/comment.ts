@@ -15,8 +15,8 @@ class Comments extends Model<
     declare commentId: CreationOptional<number>;
     declare userId: ForeignKey<number>;
     declare comment: string;
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
+    declare createdAt: CreationOptional<string>;
+    declare updatedAt: CreationOptional<string>;
 }
 
 Comments.init(

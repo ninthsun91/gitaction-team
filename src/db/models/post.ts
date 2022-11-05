@@ -16,8 +16,8 @@ class Posts extends Model<
     declare userId: ForeignKey<number>;
     declare title: string;
     declare content: string;
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
+    declare createdAt: CreationOptional<string>;
+    declare updatedAt: CreationOptional<string>;
 }
 
 Posts.init(
