@@ -2,15 +2,17 @@ import express from "express";
 import dotenv from "dotenv";
 import sequelize from "./db/config/connection";
 import cookieParser from "cookie-parser";
+import indexRouter from "./api/routes/index";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(indexRouter);
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }), express.Router);
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res, next) => {
   res.json({
