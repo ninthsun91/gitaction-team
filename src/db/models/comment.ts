@@ -7,6 +7,8 @@ import {
     ForeignKey,
 } from 'sequelize';
 import sequelize from '../config/connection';
+import Posts from './post';
+import Users from './user';
 
 class Comments extends Model<
     InferAttributes<Comments>,
@@ -17,6 +19,17 @@ class Comments extends Model<
     declare comment: string;
     declare createdAt: CreationOptional<string>;
     declare updatedAt: CreationOptional<string>;
+
+    static associate() {
+        this.belongsTo(Users, {
+            foreignKey: 'userId',
+            targetKey: 'userId',
+        });
+        this.belongsTo(Posts, {
+            foreignKey: 'postId',
+            targetKey: 'postId',
+        });
+    }
 }
 
 Comments.init(
@@ -28,10 +41,10 @@ Comments.init(
         },
         userId: {
             type: DataTypes.INTEGER.UNSIGNED,
-            // references: {
-            //     model: 'Users',
-            //     key: 'userId'
-            // }
+            references: {
+                model: 'Users',
+                key: 'userId',
+            },
         },
         comment: {
             type: DataTypes.STRING,
