@@ -19,6 +19,13 @@ class UsersRepository extends Users {
   findByUser = async (userId: number) => {
     return await Users.findByPk(userId);
   };
+
+  updateUser = async (user: { userId: number; password: string }) => {
+    await Users.update(
+      { password: user.password },
+      { where: { userId: user.userId } }
+    );
+  };
 }
 
 export default new UsersRepository();

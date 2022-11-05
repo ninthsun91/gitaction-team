@@ -27,4 +27,17 @@ export default {
 
     return userInfo;
   },
+
+  updateUser: async (user: {
+    userId: number;
+    password: string;
+    newPassword: string;
+  }) => {
+    const userInfo = await User.findByUser(user.userId);
+
+    if (user.password !== userInfo?.password)
+      throw new Error("패스워드 불일치");
+
+    await User.updateUser({ userId: user.userId, password: user.newPassword });
+  },
 };

@@ -5,6 +5,6 @@ const router = Router();
 
 router.route("/login").post(User.login);
 router.route("/signup").post(User.signup);
-router.route("/:userId").get(User.userInfo)//.put().delete()
+router.route("/:userId").get(User.userInfo).put(User.updateUser)//.delete()
 
 export default router;
