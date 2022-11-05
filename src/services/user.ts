@@ -19,4 +19,12 @@ export default {
 
     return userInfo;
   },
+
+  userInfo: async (userId: number) => {
+    const userInfo = await User.findByUser(userId);
+
+    if (!userInfo) throw new Error("없는유저");
+
+    return userInfo;
+  },
 };
