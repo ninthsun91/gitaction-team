@@ -24,11 +24,11 @@ class Comments extends Model<
     static associate() {
         this.belongsTo(Users, {
             foreignKey: 'userId',
-            targetKey: 'userId'
+            targetKey: 'userId',
         });
         this.belongsTo(Posts, {
             foreignKey: 'postId',
-            targetKey: 'postId'
+            targetKey: 'postId',
         });
     }
 }
@@ -44,8 +44,8 @@ Comments.init(
             type: DataTypes.INTEGER.UNSIGNED,
             references: {
                 model: 'Users',
-                key: 'userId'
-            }
+                key: 'userId',
+            },
         },
         postId: {
             type: DataTypes.INTEGER.UNSIGNED,

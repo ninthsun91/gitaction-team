@@ -20,15 +20,15 @@ class Posts extends Model<
     declare content: string;
     declare createdAt: CreationOptional<string>;
     declare updatedAt: CreationOptional<string>;
-    
+
     static associate() {
         this.belongsTo(Users, {
             foreignKey: 'userId',
-            targetKey: 'userId'
+            targetKey: 'userId',
         });
         this.hasMany(Comments, {
             sourceKey: 'postId',
-            foreignKey: 'postId'
+            foreignKey: 'postId',
         });
     }
 }

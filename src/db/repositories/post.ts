@@ -13,6 +13,10 @@ class PostsRepository extends Posts {
     constructor() {
         super();
     }
+
+    findAll = async () => {
+        return await Posts.findAll();
+    };
 }
 
 export default new PostsRepository();
