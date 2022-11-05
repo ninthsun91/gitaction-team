@@ -53,4 +53,16 @@ export default {
       res.status(400).send({ errorMessage: "로그인실패" });
     }
   },
+
+  userInfo: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+      const userInfo = await User.userInfo(+userId);
+
+      res.status(200).json({ data: userInfo });
+    } catch (err) {
+      console.log(err);
+      console.trace(err);
+      res.status(400).send({ errorMessage: "유저정보 조회 실패" });}
+  },
 };

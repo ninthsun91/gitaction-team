@@ -15,6 +15,10 @@ class UsersRepository extends Users {
       where: { name },
     });
   };
+
+  findByUser = async (userId: number) => {
+    return await Users.findByPk(userId);
+  };
 }
 
 export default new UsersRepository();
