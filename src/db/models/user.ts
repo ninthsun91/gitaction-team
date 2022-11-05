@@ -15,8 +15,8 @@ class Users extends Model<
   declare userId: CreationOptional<number>;
   declare name: string;
   declare password: string;
-  declare createdAt: CreationOptional<Date>;
-  declare updatedAt: CreationOptional<Date>;
+  declare createdAt: CreationOptional<String>;
+  declare updatedAt: CreationOptional<String>;
 }
 
 Users.init(
@@ -43,7 +43,7 @@ Users.init(
       defaultValue: new Date().toLocaleString(),
     },
   },
-  { sequelize }
+  { sequelize, modelName: "Users" }
 );
 
 export default Users;
