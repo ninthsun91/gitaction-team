@@ -27,13 +27,13 @@ Posts.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        // userId: {
-        //     type: DataTypes.INTEGER.UNSIGNED,
-        //     references: {
-        //         model: 'Users',
-        //         key: 'userId'
-        //     }
-        // },
+        userId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            // references: {
+            //     model: 'Users',
+            //     key: 'userId'
+            // }
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,
