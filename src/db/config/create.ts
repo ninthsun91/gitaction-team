@@ -9,14 +9,13 @@ const connection = mysql2.createConnection({
     password: process.env.DB_PASSWORD,
 });
 
-
-(()=>{
+(() => {
     connection.query(`
         DROP DATABASE ${process.env.DB_NAME};
     `);
     connection.query(`
         CREATE DATABASE ${process.env.DB_NAME};
     `);
-    
+
     connection.end();
 })();
