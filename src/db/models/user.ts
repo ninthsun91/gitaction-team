@@ -56,7 +56,7 @@ Users.init(
       defaultValue: new Date().toLocaleString(),
     },
   },
-  { sequelize }
+  { sequelize, modelName: "Users" }
 );
 
 export default Users;
