@@ -1,47 +1,68 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, ForeignKey } from "sequelize";
-import sequelize from "../config/connection";
-
+import {
+    Model,
+    DataTypes,
+    InferAttributes,
+    InferCreationAttributes,
+    CreationOptional,
+    ForeignKey,
+} from 'sequelize';
+import sequelize from '../config/connection';
+import Posts from './post';
+import Users from './user';
 
 class Comments extends Model<
-    InferAttributes<Comments>, InferCreationAttributes<Comments>> {
-
+    InferAttributes<Comments>,
+    InferCreationAttributes<Comments>
+> {
     declare commentId: CreationOptional<number>;
     declare userId: ForeignKey<number>;
     declare comment: string;
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
+    declare createdAt: CreationOptional<string>;
+    declare updatedAt: CreationOptional<string>;
+
+    static associate() {
+        this.belongsTo(Users, {
+            foreignKey: 'userId',
+            targetKey: 'userId'
+        });
+        this.belongsTo(Posts, {
+            foreignKey: 'postId',
+            targetKey: 'postId'
+        });
+    }
 }
 
-
-Comments.init({
-    commentId: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true
+Comments.init(
+    {
+        commentId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        userId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            references: {
+                model: 'Users',
+                key: 'userId'
+            }
+        },
+        comment: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        createdAt: {
+            type: DataTypes.STRING,
+            defaultValue: new Date().toLocaleString(),
+        },
+        updatedAt: {
+            type: DataTypes.STRING,
+            defaultValue: new Date().toLocaleString(),
+        },
     },
-    // userId: {
-    //     type: DataTypes.INTEGER.UNSIGNED,
-    //     references: {
-    //         model: 'Users',
-    //         key: 'userId'
-    //     }
-    // },
-    comment: {
-        type: DataTypes.STRING,
-        allowNull: false
+    {
+        sequelize,
+        modelName: 'Comments',
     },
-    createdAt: {
-        type: DataTypes.STRING,
-        defaultValue: new Date().toLocaleString(),
-    },
-    updatedAt: {
-        type: DataTypes.STRING,
-        defaultValue: new Date().toLocaleString(),
-    }
-}, {
-    sequelize,
-    modelName: 'Comments'
-})
-
+);
 
 export default Comments;

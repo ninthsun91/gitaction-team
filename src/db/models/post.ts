@@ -7,6 +7,8 @@ import {
     ForeignKey,
 } from 'sequelize';
 import sequelize from '../config/connection';
+import Comments from './comment';
+import Users from './user';
 
 class Posts extends Model<
     InferAttributes<Posts>,
@@ -16,8 +18,19 @@ class Posts extends Model<
     declare userId: ForeignKey<number>;
     declare title: string;
     declare content: string;
-    declare createdAt: CreationOptional<Date>;
-    declare updatedAt: CreationOptional<Date>;
+    declare createdAt: CreationOptional<string>;
+    declare updatedAt: CreationOptional<string>;
+    
+    static associate() {
+        this.belongsTo(Users, {
+            foreignKey: 'userId',
+            targetKey: 'userId'
+        });
+        this.hasMany(Comments, {
+            sourceKey: 'postId',
+            foreignKey: 'postId'
+        });
+    }
 }
 
 Posts.init(
@@ -27,13 +40,13 @@ Posts.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        // userId: {
-        //     type: DataTypes.INTEGER.UNSIGNED,
-        //     references: {
-        //         model: 'Users',
-        //         key: 'userId'
-        //     }
-        // },
+        userId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            // references: {
+            //     model: 'Users',
+            //     key: 'userId'
+            // }
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false,

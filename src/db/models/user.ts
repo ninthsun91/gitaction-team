@@ -6,6 +6,8 @@ import {
   CreationOptional,
 } from "sequelize";
 import sequelize from "../config/connection";
+import Comments from "./comment";
+import Posts from "./post";
 
 class Users extends Model<
   InferAttributes<Users>,
@@ -15,8 +17,19 @@ class Users extends Model<
   declare userId: CreationOptional<number>;
   declare name: string;
   declare password: string;
-  declare createdAt: CreationOptional<Date>;
-  declare updatedAt: CreationOptional<Date>;
+  declare createdAt: CreationOptional<string>;
+  declare updatedAt: CreationOptional<string>;
+
+  static associate() {
+    this.hasMany(Posts, {
+      sourceKey: 'userId',
+      foreignKey: 'userId',
+    });
+    this.hasMany(Comments, {
+      sourceKey: 'userId',
+      foreignKey: 'userId',
+    });
+  }
 }
 
 Users.init(
