@@ -1,17 +1,24 @@
 import Users from "../models/user";
-
-interface UserI {
-  userId: number;
-  name: string;
-  password: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { UserI } from "../../interfaces/interface";
 
 class UsersRepository extends Users {
   constructor() {
     super();
   }
+
+  signup = async (user: UserI) => {
+    await Users.create(user);
+  };
+
+  findByName = async (name: string) => {
+    return await Users.findOne({
+      where: { name },
+    });
+  };
+
+  findByUser = async (userId: number) => {
+    return await Users.findByPk(userId);
+  };
 }
 
 export default new UsersRepository();

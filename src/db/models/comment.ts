@@ -16,6 +16,7 @@ class Comments extends Model<
 > {
     declare commentId: CreationOptional<number>;
     declare userId: ForeignKey<number>;
+    declare postId: ForeignKey<number>;
     declare comment: string;
     declare createdAt: CreationOptional<string>;
     declare updatedAt: CreationOptional<string>;
@@ -45,6 +46,13 @@ Comments.init(
                 model: 'Users',
                 key: 'userId',
             },
+        },
+        postId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            references: {
+                model: 'Posts',
+                key: 'postId'
+            }
         },
         comment: {
             type: DataTypes.STRING,

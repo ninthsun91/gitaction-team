@@ -40,23 +40,24 @@ Users.init(
             primaryKey: true,
         },
         name: {
-            type: DataTypes.STRING,
-            allowNull: false,
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         password: {
-            type: DataTypes.STRING,
-            allowNull: false,
+          type: DataTypes.STRING,
+          allowNull: false,
         },
         createdAt: {
-            type: DataTypes.STRING,
-            defaultValue: new Date().toLocaleString(),
+          type: DataTypes.STRING,
+          defaultValue: new Date().toLocaleString(),
         },
         updatedAt: {
-            type: DataTypes.STRING,
-            defaultValue: new Date().toLocaleString(),
+          type: DataTypes.STRING,
+          defaultValue: new Date().toLocaleString(),
         },
-    },
-    { sequelize },
-);
+      },
+      { sequelize, modelName: "Users" }
+
+  );
 
 export default Users;
