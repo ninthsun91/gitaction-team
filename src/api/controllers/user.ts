@@ -63,6 +63,26 @@ export default {
     } catch (err) {
       console.log(err);
       console.trace(err);
-      res.status(400).send({ errorMessage: "유저정보 조회 실패" });}
+      res.status(400).send({ errorMessage: "유저정보 조회 실패" });
+    }
+  },
+
+  updateUser: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+      const { password, newPassword } = req.body;
+
+      if (!password || !newPassword) throw new Error("패스워드미입력");
+
+      const userUpdate = { userId: +userId, password, newPassword };
+
+      await User.updateUser(userUpdate);
+
+      res.status(200).send({ message: "회원정보수정성공" });
+    } catch (err) {
+      console.log(err);
+      console.trace(err);
+      res.status(400).send({ errorMessage: "회원정보수정실패" });
+    }
   },
 };
