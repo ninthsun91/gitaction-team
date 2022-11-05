@@ -1,9 +1,19 @@
 interface UserI {
-  userId?: number;
-  name: string;
-  password: string;
-  createdAt?: string;
-  updatedAt?: string;
+    userId?: number;
+    name: string;
+    password: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-export { UserI };
+interface CommentInterface {
+    commentId?: number;
+    userId: number;
+    postId: number;
+    comment: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+
+export { UserI, CommentInterface }
